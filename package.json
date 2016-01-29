@@ -1,0 +1,23 @@
+{
+  "name": "wia-sensortag-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wiaio/wia-sensortag-example.git"
+  },
+  "author": "Wia <team@wia.io> (https://www.wia.io)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wiaio/wia-sensortag-example/issues"
+  },
+  "homepage": "https://github.com/wiaio/wia-sensortag-example#readme",
+  "dependencies": {
+    "sensortag": "^1.2.2",
+    "wia": "^1.1.12"
+  }
+}
