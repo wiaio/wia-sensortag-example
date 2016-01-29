@@ -1,6 +1,6 @@
 'use strict';
 
-var wia = require('wia')('');
+var wia = require('wia')('YOUR_DEVICE_TOKEN');
 var SensorTag = require('sensortag');
 
 // Defaults
@@ -25,6 +25,8 @@ var tagOptions = {
   notifySimpleKey: true
 }
 
+var SensorTagMap = {};
+
 function onDiscover(sensorTag) {
   wia.logs.publish({level: "level", message: 'Sensortag discovered.', data:{id: sensorTag.id, type:sensorTag.type}});
 
@@ -40,14 +42,20 @@ function setupSensorTag(sensorTag) {
 
     sensorTag.on('disconnect', function() {
       wia.logs.publish({level:"info", message:"Sensortag disconnected.", data:{id: sensorTag.id, type:sensorTag.type}});
+      if (SensorTagMap[sensorTag.id])
+        delete SensorTagMap[sensorTag.id];
       SensorTag.discoverAll(onDiscover);
     });
 
     if (error) {
       wia.logs.publish({level: "error", message: error.toString()});
+      if (SensorTagMap[sensorTag.id])
+        delete SensorTagMap[sensorTag.id];
       SensorTag.discoverAll(onDiscover);
       return;
     }
+
+    SensorTagMap[sensorTag.id] = sensorTag;
 
     if (tagOptions.irTemperature)
       setupIrTemperature(sensorTag);
